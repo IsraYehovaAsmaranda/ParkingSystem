@@ -8,6 +8,7 @@ Parking System adalah aplikasi yang dibangun menggunakan .NET 5.0 untuk mengelol
 ## Perintah
 Berikut adalah daftar perintah yang tersedia dalam Parking System:
 
+- `show_commands`: Menampilkan seluruh command yang dapat digunakan
 - `create_parking_lot <jumlah_slot>`: Membuat tempat parkir dengan jumlah slot yang ditentukan.
 - `park <nomor_registrasi> <warna> <jenis_kendaraan>`: Memarkir kendaraan dengan informasi yang diberikan.
 - `leave <slot_number>`: Mengeluarkan kendaraan dari slot parkir yang ditentukan.
