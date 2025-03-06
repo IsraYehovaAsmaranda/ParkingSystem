@@ -20,4 +20,15 @@ namespace ParkingApp.blueprint
             Type = type;
         }
     }
+    class VehicleParkRequest
+    {
+        public Vehicle Vehicle { get; set; }
+        public DateTime CheckInTime { get; private set; }
+
+        public VehicleParkRequest(Vehicle vehicle)
+        {
+            Vehicle = vehicle;
+            CheckInTime = DateTime.Now;
+        }
+    }
 }
