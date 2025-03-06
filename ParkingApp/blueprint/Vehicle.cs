@@ -11,7 +11,7 @@ namespace ParkingApp.blueprint
     {
         public String RegistrationNumber { get; set; }
         public String Color { get; set; }
-        private VehicleType Type { get; set; }
+        public VehicleType Type { get; set; }
 
         public Vehicle(string registrationNumber, string color, VehicleType type)
         {

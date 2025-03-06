@@ -8,7 +8,7 @@ namespace ParkingApp.constant
 {
     enum VehicleType
     {
-        MOTORCYCLE,
-        CAR
+        MOTOR,
+        MOBIL
     }
 }
