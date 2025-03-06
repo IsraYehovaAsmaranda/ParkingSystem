@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ParkingApp.constant;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -56,13 +58,30 @@ namespace ParkingApp.blueprint
             }
             return result;
         }
-        public int GetOccupiedSlotsCount()
+        public int CountOccupiedSlots()
         {
             return OccupiedLots.Count;
         }
-        public int GetAvailableSlotsCount()
+        public int CountAvailableSlots()
         {
             return TotalLots - OccupiedLots.Count;
+        }
+        public int CountByType(VehicleType type)
+        {
+            return OccupiedLots.Values.Where(v => v.Vehicle.Type == type).Count();
+        }
+        public int CountByColor(String color)
+        {
+            Dictionary<int, Vehicle> vehicles = FindByColor(color);
+            return vehicles.Values.Count;
+        }
+        public int CountByEvenRegistrationNumber()
+        {
+            return OccupiedLots.Values.Count(v => int.TryParse(new string(v.Vehicle.RegistrationNumber.Where(char.IsDigit).Last().ToString()), out int lastDigit) && lastDigit % 2 == 0);
+        }
+        public int CountByOddRegistrationNumber()
+        {
+            return OccupiedLots.Values.Count(v => int.TryParse(new string(v.Vehicle.RegistrationNumber.Where(char.IsDigit).Last().ToString()), out int lastDigit) && lastDigit % 2 == 1);
         }
         public String GetEvenRegistrationNumber()
         {
@@ -79,6 +98,29 @@ namespace ParkingApp.blueprint
                 .Select(v => v.Vehicle.RegistrationNumber);
 
             return oddRegistrationNumber.Any() ? String.Join(", ", oddRegistrationNumber) : "No vehicle with odd registration number found";
+        }
+        public String GetRegistrationNumberByColor(String color)
+        {
+            Dictionary<int, Vehicle> vehicles = FindByColor(color);
+            return String.Join("", vehicles.Select(v => v.Value.RegistrationNumber));
+        }
+        public String GetSlotNumberByColor(String color)
+        {
+            Dictionary<int, Vehicle> vehicles = FindByColor(color);
+            return String.Join("", vehicles.Select(v => v.Key));
+        }
+        public String GetSlotNumberByRegistrationNumber(String registrationNumber)
+        {
+            Vehicle vehicles = FindByRegistrationNumber(registrationNumber);
+            return vehicles.RegistrationNumber;
+        }
+        public Dictionary<int, Vehicle> FindByColor(String color)
+        {
+            return OccupiedLots.Where(v => v.Value.Vehicle.Color.Equals(color, StringComparison.OrdinalIgnoreCase)).ToDictionary(v => v.Key, v => v.Value.Vehicle);
+        }
+        public Vehicle FindByRegistrationNumber(String registrationNumber)
+        {
+            return OccupiedLots.Where(v => v.Value.Vehicle.RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase)).Select(v=>v.Value.Vehicle).FirstOrDefault();
         }
     }
 }
