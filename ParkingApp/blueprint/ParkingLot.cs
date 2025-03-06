@@ -8,13 +8,24 @@ namespace ParkingApp.blueprint
 {
     class ParkingLot
     {
-        public Int16 TotalSlots { get; private set; }
+        public int TotalSlots { get; private set; }
         public Dictionary<int, Vehicle> OccupiedLots { get; private set; }
 
-        public ParkingLot(Int16 totalSlots)
+        public ParkingLot(int totalSlots)
         {
             TotalSlots = totalSlots;
             OccupiedLots = new();
+        }
+
+        public String Park(Vehicle vehicle)
+        {
+            if(OccupiedLots.Count >= TotalSlots)
+            {
+                return "Sorry, parking lot is full";
+            }
+            int slotNumber = Enumerable.Range(1, TotalSlots).FirstOrDefault(i => !OccupiedLots.ContainsKey(i));
+            OccupiedLots[slotNumber] = vehicle;
+            return $"Allocated slot number: {slotNumber}";
         }
     }
 }
