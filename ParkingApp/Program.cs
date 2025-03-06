@@ -8,6 +8,7 @@ namespace ParkingApp
     {
         static void Main(string[] args)
         {
+            ShowCommands();
             ParkingLot parkingLot = null;
             while (true)
             {
@@ -20,6 +21,9 @@ namespace ParkingApp
 
                 switch (command[0])
                 {
+                    case "show_commands":
+                        ShowCommands();
+                        break;
                     case "create_parking_lot":
                         try
                         {
@@ -258,5 +262,29 @@ namespace ParkingApp
                 }
             }
         }
+        static void ShowCommands()
+        {
+            Console.WriteLine("=================================================");
+            Console.WriteLine("  Parking System - List of Available Commands  ");
+            Console.WriteLine("=================================================");
+            Console.WriteLine("create_parking_lot <jumlah_slot>");
+            Console.WriteLine("park <nomor_registrasi> <warna> <jenis_kendaraan>");
+            Console.WriteLine("leave <slot_number>");
+            Console.WriteLine("status");
+            Console.WriteLine("type_of_vehicles <jenis_kendaraan>");
+            Console.WriteLine("registration_numbers_for_vehicles_with_odd_plate");
+            Console.WriteLine("registration_numbers_for_vehicles_with_even_plate");
+            Console.WriteLine("registration_numbers_for_vehicles_with_colour <warna>");
+            Console.WriteLine("slot_numbers_for_vehicles_with_colour <warna>");
+            Console.WriteLine("slot_number_for_registration_number <nomor_registrasi>");
+            Console.WriteLine("count_vehicles_by_color <warna>");
+            Console.WriteLine("count_available_lots");
+            Console.WriteLine("count_occupied_lots");
+            Console.WriteLine("count_even_plates");
+            Console.WriteLine("count_odd_plates");
+            Console.WriteLine("exit");
+            Console.WriteLine("=================================================");
+        }
+
     }
 }
